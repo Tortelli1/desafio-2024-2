@@ -39,8 +39,7 @@ public class Product {
 	@Column(name = "product_status")
 	private Boolean active;
 	
-	public Product(Integer id, String name, String description, Double price, Double rating, Double stock, String sku,
-			Double weight, Boolean active) {
+	public Product(Integer id, String name, String description, Double price, Double rating, Double stock, String sku, Double weight, Boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
