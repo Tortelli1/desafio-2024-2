@@ -1,5 +1,5 @@
 package br.edu.unoesc.repository;
 
-public class BrandRepository {
+public interface BrandRepository {
 
 }
