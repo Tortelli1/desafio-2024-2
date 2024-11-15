@@ -1,5 +1,9 @@
 package br.edu.unoesc.repository;
 
-public interface BrandRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.edu.unoesc.model.Brand;
+
+public interface BrandRepository extends JpaRepository<Brand, Integer>{
 
 }
