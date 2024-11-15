@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,6 +40,14 @@ public class Product {
 	
 	@Column(name = "product_status")
 	private Boolean active;
+	
+	@ManyToOne
+	@JoinColumn(name = "brand_id")
+	private Brand brand;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
 	public Product(Integer id, String name, String description, Double price, Double rating, Double stock, String sku, Double weight, Boolean active) {
 		super();
