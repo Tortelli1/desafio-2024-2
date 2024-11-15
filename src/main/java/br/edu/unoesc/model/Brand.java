@@ -27,6 +27,10 @@ public class Brand {
 	@Column(name = "brand_status")
 	private Boolean active;
 
+	public Brand() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}

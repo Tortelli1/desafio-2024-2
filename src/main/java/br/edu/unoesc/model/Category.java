@@ -21,6 +21,10 @@ public class Category {
 	@Column(name = "category_status")
 	private boolean active;
 
+	public Category() {
+		
+	}
+	
 	public Integer getId() {
 		return id;
 	}
