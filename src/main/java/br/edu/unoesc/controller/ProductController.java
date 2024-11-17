@@ -3,6 +3,7 @@ package br.edu.unoesc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,11 @@ public class ProductController {
 		List<Brand> brand = brandService.getAllBrands();
 		model.addAttribute("category", category);
 		model.addAttribute("brand", brand);
-		return "/category/cadastro";
+		return "/cadastrar/productCadastro";
+	}
+	
+	public String consultarProdutos(@ModelAttribute("produtos") Product product) {
+		return "/consultar/consultarProduto";
 	}
 	
 }
