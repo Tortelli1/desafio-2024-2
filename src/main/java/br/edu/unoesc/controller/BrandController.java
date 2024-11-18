@@ -17,28 +17,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.edu.unoesc.model.Brand;
 import br.edu.unoesc.model.Category;
-import br.edu.unoesc.service.CategoryService;
+import br.edu.unoesc.service.BrandService;
 
 @Controller
-@RequestMapping("/category")
-public class CategoryController {
-	
-	@Autowired
-	private CategoryService categoryService;
+@RequestMapping("/brand")
+public class BrandController {
 
+	@Autowired
+	private BrandService brandService;
+	
 	@GetMapping("/consulta")
-	public String consultarCategoria(@ModelAttribute("category") Category category) {
-		return "/consultar/consultarCategoria";
+	public String consultarMarca(@ModelAttribute("brand") Brand brand) {
+		return "/consultar/consultarMarca";
 	}
 	
 	@GetMapping("/cadastrar")
-	public String cadastrarCategoria(@ModelAttribute("category") Category category) {
-		return "/cadastrar/cadastrarCategoria";
+	public String cadastrarMarca(@ModelAttribute("brand") Brand brand) {
+		return "/cadastrar/cadastrarMarca";
 	}
 	
 	@PostMapping("/salvar")
-	public ResponseEntity<?> salvarProduto(@Validated @ModelAttribute Category category, BindingResult result) {
+	public ResponseEntity<?> salvarMarca(@Validated @ModelAttribute Brand brand, BindingResult result) {
 		try {
 			if (result.hasErrors()) {
 				Map<String, String> errors = new HashMap<>();
@@ -46,8 +47,8 @@ public class CategoryController {
 				return ResponseEntity.badRequest().body(errors);
 			}
 			
-			Category savedCategory = categoryService.salvarCategory(category);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+			Brand savedBrand = brandService.salvarBrand(brand);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedBrand);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,16 +59,16 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String consultarCategoria(@PathVariable("id") Integer id, Model model) {
-		Category category = categoryService.getCategoryById(id);
-		model.addAttribute(category);
-		return "/cadastro/cadastrarProduto";
+	public String consultarMarca(@PathVariable("id") Integer id, Model model) {
+		Brand brand = brandService.getBrandById(id);
+		model.addAttribute(brand);
+		return "/cadastro/cadastrarMarca";
 	}
 	
 	@DeleteMapping("/deletar/{id}")
-	public ResponseEntity<String> deletarCategoria(@PathVariable("id") Integer id) {
+	public ResponseEntity<String> deletarMarca(@PathVariable("id") Integer id) {
 		try {
-			boolean isRemoved = categoryService.deletarCategory(id);
+			boolean isRemoved = brandService.deletarBrand(id);
 			if (!isRemoved) {
 				return new ResponseEntity<>("O registro não foi localizado!", HttpStatus.NOT_FOUND);
 			}
@@ -76,6 +77,5 @@ public class CategoryController {
 			return new ResponseEntity<>("Ocorreu um erro ao tentar deletar o registro", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 	
 }
