@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "BRAND")
@@ -15,21 +16,22 @@ public class Brand {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotBlank(message = "O nome é obrigatório")
 	@Column(name = "brand_name")
 	private String name;
 	
+	@NotBlank(message = "O e-mail é obrigatório")
 	@Column(name = "mail")
 	private String mail;
 	
+	@NotBlank(message = "O telefone é obrigatório")
 	@Column(name = "phone")
 	private Long phone;
 	
 	@Column(name = "brand_status")
 	private Boolean active;
 
-	public Brand() {
-		
-	}
+	public Brand(){}
 	
 	public Integer getId() {
 		return id;
