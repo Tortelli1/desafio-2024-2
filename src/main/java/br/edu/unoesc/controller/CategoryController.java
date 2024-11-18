@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,39 +21,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.edu.unoesc.model.Brand;
 import br.edu.unoesc.model.Category;
 import br.edu.unoesc.model.Product;
-import br.edu.unoesc.service.BrandService;
 import br.edu.unoesc.service.CategoryService;
-import br.edu.unoesc.service.ProductService;
 
 @Controller
-@RequestMapping("/product")
-public class ProductController {
-
-	@Autowired
-	private ProductService productService;
+@RequestMapping("/category")
+public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
-	@Autowired
-	private BrandService brandService;
-	
-	@GetMapping("/consultar")
-	public String consultarProduto(@ModelAttribute("produtos") Product product) {
-		return "/consultar/consultarProduto";
+
+	@GetMapping("/consulta")
+	public String consultarCategoria(@ModelAttribute("category") Category category) {
+		return "/consultar/consultarCategoria";
 	}
 	
 	@GetMapping("/cadastrar")
-	public String cadastrarProduto(@ModelAttribute("product") Product product, ModelMap model) {
-		List<Category> category = categoryService.getAllCategorys();
-		List<Brand> brand = brandService.getAllBrands();
-		model.addAttribute("category", category);
-		model.addAttribute("brand", brand);
-		return "/cadastrar/cadastrarProduto";
+	public String cadastrarCategoria(@ModelAttribute("category") Category category) {
+		return "/cadastrar/cadastrarCategoria";
 	}
 	
 	@PostMapping("/salvar")
-	public ResponseEntity<?> salvarProduto(@Validated @ModelAttribute Product product, BindingResult result) {
+	public ResponseEntity<?> salvarProduto(@Validated @ModelAttribute Category category, BindingResult result) {
 		try {
 			if (result.hasErrors()) {
 				Map<String, String> errors = new HashMap<>();
@@ -62,8 +49,8 @@ public class ProductController {
 				return ResponseEntity.badRequest().body(errors);
 			}
 			
-			Product savedProduct = productService.salvarProduct(product);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+			Category savedCategory = categoryService.salvarCategory(category);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,20 +61,16 @@ public class ProductController {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String consultaProduto(@PathVariable("id") Integer id, Model model) {
-		Product product = productService.getProductById(id);
-		List<Category> category = categoryService.getAllCategorys();
-		List<Brand> brand = brandService.getAllBrands();
-		model.addAttribute(product);
+	public String consultarCategoria(@PathVariable("id") Integer id, Model model) {
+		Category category = categoryService.getCategoryById(id);
 		model.addAttribute(category);
-		model.addAttribute(brand);
 		return "/cadastro/cadastrarProduto";
 	}
 	
 	@DeleteMapping("/deletar/{id}")
-	public ResponseEntity<String> deletarProduto(@PathVariable("id") Integer id) {
+	public ResponseEntity<String> deletarCategoria(@PathVariable("id") Integer id) {
 		try {
-			boolean isRemoved = productService.deletarProduct(id);
+			boolean isRemoved = categoryService.deletarCategory(id);
 			if (!isRemoved) {
 				return new ResponseEntity<>("O registro não foi localizado!", HttpStatus.NOT_FOUND);
 			}
@@ -96,5 +79,6 @@ public class ProductController {
 			return new ResponseEntity<>("Ocorreu um erro ao tentar deletar o registro", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 	
 }
