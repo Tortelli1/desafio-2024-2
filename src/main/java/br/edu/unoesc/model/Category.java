@@ -19,7 +19,7 @@ public class Category {
 	private String name;
 	
 	@Column(name = "category_status")
-	private boolean active;
+	private Boolean active;
 
 	public Category() {
 		
@@ -41,7 +41,7 @@ public class Category {
 		this.name = name;
 	}
 
-	public boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 

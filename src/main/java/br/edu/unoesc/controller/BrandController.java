@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.edu.unoesc.model.Brand;
-import br.edu.unoesc.model.Category;
 import br.edu.unoesc.service.BrandService;
 
 @Controller

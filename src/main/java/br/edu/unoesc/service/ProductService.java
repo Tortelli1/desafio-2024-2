@@ -14,8 +14,13 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public Product salvarProduct(Product product) {
-		return productRepository.save(product);
+	public Product salvarProduct(Product product) throws Exception {
+		if(product.getCategory().getActive() && product.getBrand().getActive()) {
+			return productRepository.save(product);
+		} if (product.getCategory().getActive()) {
+			throw new Exception("A Categoria não está ativa");
+		}
+		throw new Exception("A Marca não está ativa");
 	}
 	
 	public List<Product> getAllProducts(){
