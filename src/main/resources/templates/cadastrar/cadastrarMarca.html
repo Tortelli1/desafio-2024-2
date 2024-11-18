@@ -5,11 +5,11 @@
 	<title>Cadastro de Marca</title>
 </head>
 <body>
-	<header th:insert="~{/pages/header :: header}"></header>
+	<!-- <header th:insert="~{/pages/header :: header}"></header> -->
 	<main>
 		<div class="container-form">
 			<h1>Cadastro de Marcas</h1>
-			<form th:action="~{/brand/salvar}" th:object="${brand}" method="post" id="brandForm">
+			<form th:action="@{/brand/salvar}" th:object="${brand}" method="post" id="brandForm">
 				<div>
 					<label for="id">Id:</label>
 					<input type="number" id="id" th:field="*{id}" placeholder="id" readonly/>

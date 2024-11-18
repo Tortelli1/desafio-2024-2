@@ -27,7 +27,7 @@ public class BrandController {
 	@Autowired
 	private BrandService brandService;
 	
-	@GetMapping("/consulta")
+	@GetMapping("/consultar")
 	public String consultarMarca(@ModelAttribute("brand") Brand brand) {
 		return "/consultar/consultarMarca";
 	}
