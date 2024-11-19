@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link href="/css/login.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://acad.unoesc.edu.br/academico/images/logo-unoesc-colorido.png" alt="Logo" class="logo" />
+        <br>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <hr class="divider" />
+        </form>
+    </div>
+
+</body>
+</html>

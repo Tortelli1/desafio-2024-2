@@ -40,6 +40,11 @@ public class BrandController {
 	@PostMapping("/salvar")
 	public ResponseEntity<?> salvarMarca(@Validated @ModelAttribute Brand brand, BindingResult result) {
 		try {
+			
+			if (brand.getActive() == null) {
+	            result.rejectValue("active", "error.brand", "Selecione um status válido.");
+	        }
+			
 			if (result.hasErrors()) {
 				Map<String, String> errors = new HashMap<>();
 				result.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
