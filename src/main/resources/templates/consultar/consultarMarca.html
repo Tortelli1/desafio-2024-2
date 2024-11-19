@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<main>
+		<div class="container-table">
+			<button class="button-consulta" type="button" id="excluir" disabled>Excluir</button>
+			<button class="button-consulta" type="button" id="editar" disabled>Editar</button>
+			<table id="tableMarcas" class="display" style="width: 100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nome</th>
+						<th>E-mail</th>
+						<th>Telefone</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="brand : ${brand}">
+						<td th:text="${brand.id}"></td>
+						<td th:text="${brand.name}"></td>
+						<td th:text="${brand.mail}"></td>
+						<td th:text="${brand.phone}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+</body>
+</html>

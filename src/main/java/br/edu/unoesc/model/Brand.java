@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "BRAND")
@@ -24,7 +25,7 @@ public class Brand {
 	@Column(name = "mail")
 	private String mail;
 	
-	@NotBlank(message = "O telefone é obrigatório")
+	@NotNull(message = "O telefone é obrigatório")
 	@Column(name = "phone")
 	private Long phone;
 	
