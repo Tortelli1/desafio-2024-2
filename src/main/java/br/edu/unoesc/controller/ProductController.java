@@ -1,9 +1,6 @@
 package br.edu.unoesc.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.unoesc.model.Brand;
 import br.edu.unoesc.model.Category;
@@ -54,22 +52,18 @@ public class ProductController {
 	}
 	
 	@PostMapping("/salvar")
-	public ResponseEntity<?> salvarProduto(@Validated @ModelAttribute Product product, BindingResult result) {
+	public String salvarProduto(@Validated @ModelAttribute Product product, BindingResult result, RedirectAttributes attr) {
 		try {
 			if (result.hasErrors()) {
-				Map<String, String> errors = new HashMap<>();
-				result.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
-				return ResponseEntity.badRequest().body(errors);
+				attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
+				return "redirect:/product/cadastrar";
 			}
 			
-			Product savedProduct = productService.salvarProduct(product);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+			productService.salvarProduct(product);
+			return "redirect:/product/cadastrar";
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			Map<String, String> error = new HashMap<>();
-			error.put("message", "Ocorreu um erro inesperado. Tente novamente mais tarde!");
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+			return "redirect:/product/cadastrar";
 		}
 	}
 	
