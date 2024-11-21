@@ -5,6 +5,36 @@
 	<title>Cadastro de Produto</title>
 </head>
 <body>
-
+	<!-- <header th:insert="~{/pages/header :: header}"></header> -->
+	<main>
+		<div class="container-form">
+			<h1>Cadastro de Marcas</h1>
+			<form th:action="@{/product/salvar}" th:object="${product}" method="post" id="productForm">
+				<div>
+					<label for="id">Id:</label>
+					<input type="number" id="id" th:field="*{id}" placeholder="id" readonly/>
+				</div>
+				<div>
+					<label for="name">Nome:</label>
+					<input type="text" id="name" th:field="*{name}" placeholder="Nome da Marca"/>
+					<div class="hidden-message" id="error-name"></div>
+				</div>
+				<div>
+					<select th:field="*{active}" class="form-select" aria-label="Selecione um status...">
+						<option value="" selected>Selecione um status...</option>
+						<option value="true">Ativo</option>
+						<option value="false">Inativo</option>
+					</select>
+				</div>
+				<div class="div-button">
+                    <button type="submit">Salvar</button>
+                    <button type="reset">Limpar</button>
+                </div>
+			</form>
+			<div th:if="${error}" class="alert alert-danger">
+                <p th:text="${error}"></p>
+            </div>
+		</div>
+	</main>
 </body>
 </html>

@@ -30,7 +30,7 @@
 					<div class="hidden-message" id="error-phone"></div>
 				</div>
 				<div>
-					<select name="active" class="form-select" aria-label="Selecione um status...">
+					<select th:field="*{active}" class="form-select" aria-label="Selecione um status...">
 						<option value="" selected>Selecione um status...</option>
 						<option value="true">Ativo</option>
 						<option value="false">Inativo</option>
