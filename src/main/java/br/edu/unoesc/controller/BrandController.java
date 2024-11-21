@@ -1,5 +1,7 @@
 package br.edu.unoesc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +28,10 @@ public class BrandController {
 	private BrandService brandService;
 	
 	@GetMapping("/consultar")
-	public String consultarMarca(@ModelAttribute("brand") Brand brand) {
-		return "/consultar/consultarMarca";
+	public String consultarMarca(@ModelAttribute("brand") Brand brand, Model model) {
+		List<Brand> brands = brandService.getAllBrands();
+	    model.addAttribute("brand", brands);
+	    return "/consultar/consultarMarca";
 	}
 	
 	@GetMapping("/cadastrar")

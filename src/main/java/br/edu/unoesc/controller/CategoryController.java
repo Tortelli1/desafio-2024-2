@@ -1,5 +1,7 @@
 package br.edu.unoesc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +27,10 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@GetMapping("/consulta")
-	public String consultarCategoria(@ModelAttribute("category") Category category) {
+	@GetMapping("/consultar")
+	public String consultarCategoria(@ModelAttribute("category") Category category, Model model) {
+		List<Category> categories = categoryService.getAllCategorys();
+		model.addAttribute("category", categories);
 		return "/consultar/consultarCategoria";
 	}
 	

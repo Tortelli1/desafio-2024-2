@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head xmlns:th="https://www.thymeleaf.org">
+<head>
 	<meta charset="UTF-8">
-	<title>Consulta de Produtos</title>
+	<title>Consultar Produtos</title>
 </head>
 <body>
-
+	<main>
+		<div class="container-table">
+			<h1>Consulta de Produtos</h1>
+            <button class="button-consulta" type="button" id="excluir" disabled>Excluir</button>
+            <button class="button-consulta" type="button" id="editar" disabled>Editar</button>
+            <table id="tableProdutos" class="display" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.category.name}"></td>
+                        <td th:text="${product.brand.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.stock}"></td>
+                        <td th:text="${product.active ? 'Ativo' : 'Inativo'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+	</main>
 </body>
 </html>

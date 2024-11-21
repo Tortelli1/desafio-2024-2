@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar Categorias</title>
+</head>
+<body>
+	 <main>
+        <div class="container-table">
+            <h1>Consulta de Categorias</h1>
+            <button class="button-consulta" type="button" id="excluir" disabled>Excluir</button>
+            <button class="button-consulta" type="button" id="editar" disabled>Editar</button>
+            <table id="tableCategorias" class="display" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
+                        <td th:text="${category.active} ? 'Ativo' : 'Inativo'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

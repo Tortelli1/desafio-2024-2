@@ -38,7 +38,9 @@ public class ProductController {
 	private BrandService brandService;
 	
 	@GetMapping("/consultar")
-	public String consultarProduto(@ModelAttribute("produtos") Product product) {
+	public String consultarProduto(@ModelAttribute("produtos") Product product, Model model) {
+		List<Product> products = productService.getAllProducts();
+		model.addAttribute("product", products);
 		return "/consultar/consultarProduto";
 	}
 	
