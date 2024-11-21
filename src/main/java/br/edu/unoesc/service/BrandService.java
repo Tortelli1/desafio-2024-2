@@ -22,6 +22,10 @@ public class BrandService {
 		return brandRepository.findAll();
 	}
 	
+	public List<Brand> getAllActiveBrands() {
+		return brandRepository.findByActiveTrue();
+	}
+	
 	public Brand getBrandById(Integer id) {
 		return brandRepository.findById(id).orElse(null);
 	}

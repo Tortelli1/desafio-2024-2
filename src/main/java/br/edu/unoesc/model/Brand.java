@@ -17,8 +17,8 @@ public class Brand {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotBlank(message = "O nome é obrigatório")
-	@Column(name = "brand_name")
+	@NotBlank(message = "O nome da Marca é obrigatório!")
+	@Column(name = "brand_name", unique = true)
 	private String name;
 	
 	@NotBlank(message = "O e-mail é obrigatório")

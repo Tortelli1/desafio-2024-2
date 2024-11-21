@@ -46,10 +46,10 @@ public class ProductController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrarProduto(@ModelAttribute("product") Product product, ModelMap model) {
-		List<Category> category = categoryService.getAllCategorys();
-		List<Brand> brand = brandService.getAllBrands();
-		model.addAttribute("category", category);
-		model.addAttribute("brand", brand);
+		List<Category> categories = categoryService.getAllCategorys();
+		List<Brand> brands = brandService.getAllBrands();
+		model.addAttribute("categories", categories);
+		model.addAttribute("brands", brands);
 		return "/cadastrar/cadastrarProduto";
 	}
 	

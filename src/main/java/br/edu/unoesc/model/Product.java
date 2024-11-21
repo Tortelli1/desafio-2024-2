@@ -18,8 +18,8 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotBlank(message = "O nome é obrigatório")
-	@Column(name = "product_name")
+	@NotBlank(message = "O nome do Produto é obrigatório!")
+	@Column(name = "product_name", unique = true)
 	private String name;
 	
 	@Column(name = "product_description")

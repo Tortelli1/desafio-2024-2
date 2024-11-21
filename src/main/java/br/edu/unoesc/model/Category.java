@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -15,7 +16,8 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "category_name")
+	@NotBlank(message = "O nome da Categoria é obrigatório!")
+	@Column(name = "category_name", unique = true)
 	private String name;
 	
 	@Column(name = "category_status")

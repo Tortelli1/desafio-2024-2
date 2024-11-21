@@ -16,10 +16,31 @@
 				</div>
 				<div>
 					<label for="name">Nome:</label>
-					<input type="text" id="name" th:field="*{name}" placeholder="Nome da Marca"/>
+					<input type="text" id="name" th:field="*{name}" placeholder="Nome do Produto"/>
 					<div class="hidden-message" id="error-name"></div>
 				</div>
 				<div>
+                    <label for="category">Categoria:</label>
+                    <select id="category" th:field="*{category}" required>
+                        <option value="" selected>Selecione uma categoria...</option>
+                        <option th:each="category : ${categories}" 
+                                th:value="${category.id}" 
+                                th:text="${category.name}"></option>
+                    </select>
+                    <div class="hidden-message" id="error-category"></div>
+                </div>
+                <div>
+                    <label for="brand">Marca:</label>
+                    <select id="brand" th:field="*{brand}" required>
+                        <option value="" selected>Selecione uma marca...</option>
+                        <option th:each="brand : ${brands}" 
+                                th:value="${brand.id}" 
+                                th:text="${brand.name}"></option>
+                    </select>
+                    <div class="hidden-message" id="error-brand"></div>
+                </div>
+				<div>
+					<label for="active">Status:</label>
 					<select th:field="*{active}" class="form-select" aria-label="Selecione um status...">
 						<option value="" selected>Selecione um status...</option>
 						<option value="true">Ativo</option>
