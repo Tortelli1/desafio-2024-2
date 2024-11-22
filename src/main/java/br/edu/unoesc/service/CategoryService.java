@@ -22,6 +22,10 @@ public class CategoryService {
 		return categoryRepository.findAll();
 	}
 	
+	public List<Category> getAllActiveCategories(){
+		return categoryRepository.findByActiveTrue();
+	}
+	
 	public Category getCategoryById(Integer id) {
 		return categoryRepository.findById(id).orElse(null);
 	}

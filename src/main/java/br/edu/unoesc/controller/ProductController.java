@@ -40,21 +40,23 @@ public class ProductController {
 	@GetMapping("/consultar")
 	public String consultarProduto(@ModelAttribute("produtos") Product product, Model model) {
 		List<Product> products = productService.getAllProducts();
-		model.addAttribute("product", products);
+		model.addAttribute("products", products);
 		return "/consultar/consultarProduto";
 	}
 	
 	@GetMapping("/cadastrar")
 	public String cadastrarProduto(@ModelAttribute("product") Product product, ModelMap model) {
-		List<Category> categories = categoryService.getAllCategorys();
-		List<Brand> brands = brandService.getAllBrands();
+		List<Category> categories = categoryService.getAllActiveCategories();
+		List<Brand> brands = brandService.getAllActiveBrands();
 		model.addAttribute("categories", categories);
 		model.addAttribute("brands", brands);
 		return "/cadastrar/cadastrarProduto";
 	}
 	
 	@PostMapping("/salvar")
-	public String salvarProduto(@Validated @ModelAttribute Product product, BindingResult result, RedirectAttributes attr) {
+	public String salvarProduto(@Validated @ModelAttribute Product product, 
+			BindingResult result, 
+			RedirectAttributes attr) {
 		try {
 			if (result.hasErrors()) {
 				attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
@@ -70,10 +72,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String consultaProduto(@PathVariable("id") Integer id, Model model) {
+	public String consultarProduto(@PathVariable("id") Integer id, Model model) {
 		Product product = productService.getProductById(id);
-		List<Category> category = categoryService.getAllCategorys();
-		List<Brand> brand = brandService.getAllBrands();
+		List<Category> category = categoryService.getAllActiveCategories();
+		List<Brand> brand = brandService.getAllActiveBrands();
 		model.addAttribute(product);
 		model.addAttribute(category);
 		model.addAttribute(brand);
