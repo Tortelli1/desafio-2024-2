@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/consultar/padraoDeConsulta.css">
     <link rel="stylesheet" href="/css/paginas/fonteDeCores.css">
 	<link rel="stylesheet" href="/css/paginas/header.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<header th:insert="~{/paginas/header :: header}"></header>
@@ -27,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="product : ${products}">
+                    <tr th:each="product : ${products}" th:data-id="${product.id}">
                         <td th:text="${product.id}"></td>
                         <td th:text="${product.name}"></td>
                         <td th:text="${product.category.name}"></td>
@@ -40,6 +41,9 @@
             </table>
         </div>
 	</main>
-	<script src="/scripts/paginas/home.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="/script/paginas/home.js"></script>
+	<script src="/script/cadastrar/cadastrarProduto.js"></script>
 </body>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Editar Produto</title>
+</head>
+<body>
+
+	<header>
+		
+	</header>
+
+	<main>
+		<div class="container">
+			<h1>Editar Produto</h1>
+			<form th:action="@{/product/editar/{id}(id=${product.id})}" th:object="${product}" method="POST">
+				<div>
+					<label for="name">Nome:</label> <input type="text" id="name"
+						th:field="*{name}" required>
+				</div>
+				<div>
+					<label for="price">Preço:</label> <input type="text" id="price"
+						th:field="*{price}" required>
+				</div>
+				<div>
+					<label for="stock">Estoque:</label> <input type="number" id="stock"
+						th:field="*{stock}" required>
+				</div>
+				<div>
+					<label for="category">Categoria:</label> <select id="category"
+						th:field="*{category}" required>
+						<option th:each="category : ${categories}"
+							th:value="${category.id}" th:text="${category.name}"
+							th:selected="${category.id == product.category.id}"></option>
+					</select>
+				</div>
+				<div>
+					<label for="brand">Marca:</label> <select id="brand"
+						th:field="*{brand}" required>
+						<option th:each="brand : ${brands}" th:value="${brand.id}"
+							th:text="${brand.name}"
+							th:selected="${brand.id == product.brand.id}"></option>
+					</select>
+				</div>
+				<div>
+					<button type="submit">Salvar</button>
+					<a href="/product/consultar">Cancelar</a>
+				</div>
+
+			</form>
+		</div>
+	</main>
+
+</body>
+</html>

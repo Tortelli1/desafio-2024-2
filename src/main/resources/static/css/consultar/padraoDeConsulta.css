@@ -140,3 +140,9 @@
 #tableMarcas th:nth-child(4), #tableMarcas td:nth-child(4) {
     text-align: left;
 }
+
+.selected {
+    background-color: #f0f8ff;
+    font-weight: bold;
+}
+

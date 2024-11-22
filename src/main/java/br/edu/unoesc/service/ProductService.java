@@ -39,4 +39,24 @@ public class ProductService {
 		return false;
 	}
 	
+    public Product updateProduct(Integer id, Product updatedProduct) throws Exception {
+        Product existingProduct = productRepository.findById(id).orElse(null);
+        if (existingProduct == null) {
+            throw new Exception("Produto não encontrado");
+        }
+
+        if (!updatedProduct.getCategory().getActive() || !updatedProduct.getBrand().getActive()) {
+            throw new Exception("A Categoria ou Marca não está ativa");
+        }
+
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setStock(updatedProduct.getStock());
+        existingProduct.setCategory(updatedProduct.getCategory());
+        existingProduct.setBrand(updatedProduct.getBrand());
+        existingProduct.setActive(updatedProduct.getActive());
+
+        return productRepository.save(existingProduct);
+    }
+	
 }
