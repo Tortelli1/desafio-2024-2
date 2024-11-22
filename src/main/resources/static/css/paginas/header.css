@@ -9,7 +9,7 @@ body {
 header {
     background-color: var(--azul-escuro);
     color: var(--branco);
-    padding-top: 10px;
+    padding-top: 15px;
     height: 6vh;
 }
 
@@ -35,7 +35,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: var(--buttons-hover);
+    background-color: var(--fundo-botao);
 }
 
 .dropdown-menu {
@@ -43,11 +43,12 @@ nav ul li a:hover {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--azul-escuro-padrao);
+    background-color: var(--azul-escuro);
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 200px;
+    border-radius: 5px;
 }
 
 .dropdown-menu li {
@@ -62,7 +63,7 @@ nav ul li a:hover {
 }
 
 .dropdown-menu li a:hover {
-    background-color: var(--buttons-hover);
+    background-color: var(--fundo-botao);
 }
 
 .dropdown:hover .dropdown-menu {
