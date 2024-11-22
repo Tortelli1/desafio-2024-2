@@ -30,7 +30,7 @@ public class BrandController {
 	@GetMapping("/consultar")
 	public String consultarMarca(@ModelAttribute("brand") Brand brand, Model model) {
 		List<Brand> brands = brandService.getAllBrands();
-	    model.addAttribute("brand", brands);
+	    model.addAttribute("brands", brands);
 	    return "/consultar/consultarMarca";
 	}
 	
