@@ -10,17 +10,20 @@
 	<!-- <header th:insert="~{/pages/header :: header}"></header> -->
 	<main>
 		<div class="container-form">
-			<h1>Cadastro de Marcas</h1>
+			<h1>Cadastro de Produtos</h1>
 			<form th:action="@{/product/salvar}" th:object="${product}" method="post" id="productForm">
+
 				<div>
-					<label for="id">Id:</label>
-					<input type="number" id="id" th:field="*{id}" placeholder="Id" readonly/>
+					<label for="id">Id:</label> <input type="number" id="id"
+						th:field="*{id}" placeholder="Id"/>
 				</div>
+
 				<div>
-					<label for="name">Nome:</label>
-					<input type="text" id="name" th:field="*{name}" placeholder="Nome do Produto" required/>
-				</div>
-				<div>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" th:field="*{name}" placeholder="Nome do Produto" required/>
+                </div>
+                
+                <div>
                     <label for="category">Categoria:</label>
                     <select id="category" th:field="*{category}" required>
                         <option value="" selected>Selecione uma categoria...</option>
@@ -28,7 +31,8 @@
                                 th:value="${category.id}" 
                                 th:text="${category.name}"></option>
                     </select>
-				</div>
+                </div>
+                
                 <div>
                     <label for="brand">Marca:</label>
                     <select id="brand" th:field="*{brand}" required>
@@ -38,23 +42,51 @@
                                 th:text="${brand.name}"></option>
                     </select>
                 </div>
-				<div>
-					<label for="active">Status:</label>
-					<select th:field="*{active}" class="form-select" aria-label="Selecione um status...">
-						<option value="" selected>Selecione um status...</option>
-						<option value="true">Ativo</option>
-						<option value="false">Inativo</option>
-					</select>
-				</div>
-				<div class="div-button">
+
+                <div>
+                    <label for="active">Status:</label>
+                    <select th:field="*{active}" class="form-select" aria-label="Selecione um status...">
+                        <option value="" selected>Selecione um status...</option>
+                        <option value="true">Ativo</option>
+                        <option value="false">Inativo</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="description">Descrição:</label>
+                    <input type="text" id="description" th:field="*{description}" placeholder="Descrição do Produto" readonly/>
+                </div>
+                <div>
+                    <label for="price">Preço:</label>
+                    <input type="text" id="price" th:field="*{price}" placeholder="Preço" readonly/>
+                </div>
+                <div>
+                    <label for="stock">Estoque:</label>
+                    <input type="number" id="stock" th:field="*{stock}" placeholder="Estoque" readonly/>
+                </div>
+                <div>
+                    <label for="rating">Avaliação:</label>
+                    <input type="number" id="rating" th:field="*{rating}" placeholder="Avaliação" readonly/>
+                </div>
+                <div>
+                    <label for="sku">SKU:</label>
+                    <input type="text" id="sku" th:field="*{sku}" placeholder="SKU" readonly/>
+                </div>
+                <div>
+                    <label for="weight">Peso:</label>
+                    <input type="text" id="weight" th:field="*{weight}" placeholder="Peso" readonly/>
+                </div>
+
+                <div class="div-button">
                     <button type="submit">Salvar</button>
                     <button type="reset">Limpar</button>
                 </div>
-			</form>
+            </form>
 			<div th:if="${error}" class="alert alert-danger">
                 <p th:text="${error}"></p>
             </div>
 		</div>
 	</main>
+	<script src="/script/cadastrar/cadastrarProduto.js"></script>
 </body>
 </html>

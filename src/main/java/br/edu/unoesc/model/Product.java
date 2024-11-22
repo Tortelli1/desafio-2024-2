@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -40,7 +41,7 @@ public class Product {
 	@Column(name = "product_weight")
 	private Double weight;
 	
-	@NotBlank(message = "O status do produto é obrigatório!")
+	@NotNull(message = "O status do produto é obrigatório!")
 	@Column(name = "product_status")
 	private Boolean active;
 	
@@ -51,6 +52,10 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	public Product() {
+		
+	}
 	
 	public Product(Integer id, String name, String description, Double price, Double rating, Double stock, String sku, Double weight, Boolean active) {
 		super();

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.unoesc.dto.ProductAPI;
@@ -44,7 +43,7 @@ public class ProductController {
 	private ProductAPIService productAPIService;
 	
 	@GetMapping("/consultar")
-	public String consultarProduto(@ModelAttribute("produtos") Product product, Model model) {
+	public String consultarProduto(@ModelAttribute("product") Product product, Model model) {
 		List<Product> products = productService.getAllProducts();
 		model.addAttribute("products", products);
 		return "/consultar/consultarProduto";
@@ -52,25 +51,34 @@ public class ProductController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrarProduto(@ModelAttribute("product") Product product, ModelMap model) {
+		if (product.getId() == null) {
+	        product = new Product();
+	    }
+		
 		List<Category> categories = categoryService.getAllActiveCategories();
-		List<Brand> brands = brandService.getAllActiveBrands();
-		model.addAttribute("categories", categories);
-		model.addAttribute("brands", brands);
-		return "/cadastrar/cadastrarProduto";
+	    List<Brand> brands = brandService.getAllActiveBrands();
+	    
+	    model.addAttribute("categories", categories);
+	    model.addAttribute("brands", brands);
+	    model.addAttribute("product", new Product());
+
+	    return "/cadastrar/cadastrarProduto";
 	}
 	
 	@PostMapping("/salvar")
 	public String salvarProduto(@Validated @ModelAttribute Product product, 
 			BindingResult result, 
-			RedirectAttributes attr,
-			@RequestParam("apiProductId") Integer apiProductId) {
+			RedirectAttributes attr) {
 		try {
+			
 			if (result.hasErrors()) {
 				attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
 				return "redirect:/product/cadastrar";
 			}
 			
-			ProductAPI apiProduct = productAPIService.fetchProductFromAPI(apiProductId);
+			Integer generatedId = product.getId();
+			
+			ProductAPI apiProduct = productAPIService.fetchProductFromAPI(generatedId);
             
 			if (apiProduct != null) {
                 product.setDescription(apiProduct.getDescription());
@@ -79,25 +87,38 @@ public class ProductController {
                 product.setStock(apiProduct.getStock());
                 product.setSku(apiProduct.getSku());
                 product.setWeight(apiProduct.getWeight());
+            } else {
+            	attr.addFlashAttribute("error", "Produto não localizado com o seguinte ID: " + generatedId);
+            	return "redirect:/product/cadastrar";
             }
 			
 			productService.salvarProduct(product);
 			return "redirect:/product/cadastrar";
 			
 		} catch (Exception e) {
+			attr.addFlashAttribute("error", "Erro ao salvar o produto.");
 			return "redirect:/product/cadastrar";
 		}
 	}
 	
 	@GetMapping("/editar/{id}")
 	public String consultarProduto(@PathVariable("id") Integer id, Model model) {
-		Product product = productService.getProductById(id);
-		List<Category> category = categoryService.getAllActiveCategories();
-		List<Brand> brand = brandService.getAllActiveBrands();
-		model.addAttribute(product);
-		model.addAttribute(category);
-		model.addAttribute(brand);
-		return "/cadastro/cadastrarProduto";
+		try {
+			Product product = productService.getProductById(id);
+			if (product == null) {
+				return "redirect:/product/consultar";
+			}
+			List<Category> categories = categoryService.getAllActiveCategories();
+			List<Brand> brands = brandService.getAllActiveBrands();
+			
+			model.addAttribute("product",product);
+			model.addAttribute("categories", categories);
+			model.addAttribute("brands", brands);
+			
+			return "/editar/editarProduto";
+		} catch (Exception e) {
+			return "redirect:/product/consultar";
+		}
 	}
 	
 	@DeleteMapping("/deletar/{id}")
