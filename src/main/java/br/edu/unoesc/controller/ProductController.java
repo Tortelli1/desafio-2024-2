@@ -70,35 +70,36 @@ public class ProductController {
 			BindingResult result, 
 			RedirectAttributes attr) {
 		try {
-			
-			if (result.hasErrors()) {
-				attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
-				return "redirect:/product/cadastrar";
-			}
-			
-			Integer generatedId = product.getId();
-			
-			ProductAPI apiProduct = productAPIService.fetchProductFromAPI(generatedId);
-            
-			if (apiProduct != null) {
-                product.setDescription(apiProduct.getDescription());
-                product.setPrice(apiProduct.getPrice());
-                product.setRating(apiProduct.getRating());
-                product.setStock(apiProduct.getStock());
-                product.setSku(apiProduct.getSku());
-                product.setWeight(apiProduct.getWeight());
-            } else {
-            	attr.addFlashAttribute("error", "Produto não localizado com o seguinte ID: " + generatedId);
-            	return "redirect:/product/cadastrar";
-            }
-			
-			productService.salvarProduct(product);
-			return "redirect:/product/cadastrar";
-			
-		} catch (Exception e) {
-			attr.addFlashAttribute("error", "Erro ao salvar o produto.");
-			return "redirect:/product/cadastrar";
-		}
+	        if (result.hasErrors()) {
+	            attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
+	            return "redirect:/product/cadastrar";
+	        }
+
+	        product = productService.salvarProduct(product);
+	        
+	        Integer generatedId = product.getId();
+	        
+	        ProductAPI apiProduct = productAPIService.fetchProductFromAPI(generatedId);
+	        
+	        if (apiProduct != null) {
+	        	product.setDescription(apiProduct.getDescription());
+		        product.setPrice(apiProduct.getPrice());
+		        product.setRating(apiProduct.getRating());
+		        product.setStock(apiProduct.getStock());
+		        product.setSku(apiProduct.getSku());
+		        product.setWeight(apiProduct.getWeight());
+		        
+		        productService.salvarProduct(product);
+	        } else {
+	        	throw new Exception("Produto não encontrado na API");
+	        }
+	        
+	        return "redirect:/product/cadastrar";
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	        attr.addFlashAttribute("error", "Erro ao salvar o produto: " + e.getMessage());
+	        return "redirect:/product/cadastrar";
+	    }
 	}
 	
 	@GetMapping("/editar/{id}")
