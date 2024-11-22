@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.unoesc.dto.ProductAPI;
 import br.edu.unoesc.model.Brand;
 import br.edu.unoesc.model.Category;
 import br.edu.unoesc.model.Product;
 import br.edu.unoesc.service.BrandService;
 import br.edu.unoesc.service.CategoryService;
+import br.edu.unoesc.service.ProductAPIService;
 import br.edu.unoesc.service.ProductService;
 
 @Controller
@@ -36,6 +39,9 @@ public class ProductController {
 	
 	@Autowired
 	private BrandService brandService;
+	
+	@Autowired
+	private ProductAPIService productAPIService;
 	
 	@GetMapping("/consultar")
 	public String consultarProduto(@ModelAttribute("produtos") Product product, Model model) {
@@ -56,12 +62,24 @@ public class ProductController {
 	@PostMapping("/salvar")
 	public String salvarProduto(@Validated @ModelAttribute Product product, 
 			BindingResult result, 
-			RedirectAttributes attr) {
+			RedirectAttributes attr,
+			@RequestParam("apiProductId") Integer apiProductId) {
 		try {
 			if (result.hasErrors()) {
 				attr.addFlashAttribute("error", "Preencha todos os campos obrigatórios!");
 				return "redirect:/product/cadastrar";
 			}
+			
+			ProductAPI apiProduct = productAPIService.fetchProductFromAPI(apiProductId);
+            
+			if (apiProduct != null) {
+                product.setDescription(apiProduct.getDescription());
+                product.setPrice(apiProduct.getPrice());
+                product.setRating(apiProduct.getRating());
+                product.setStock(apiProduct.getStock());
+                product.setSku(apiProduct.getSku());
+                product.setWeight(apiProduct.getWeight());
+            }
 			
 			productService.salvarProduct(product);
 			return "redirect:/product/cadastrar";

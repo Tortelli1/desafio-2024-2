@@ -9,7 +9,7 @@ public class ProductAPI {
     private String description;
     private Double price;
     private Double rating;
-    private Integer stock;
+    private Double stock;
     private String sku;
     private Double weight;
     
@@ -68,11 +68,11 @@ public class ProductAPI {
 		this.rating = rating;
 	}
 	
-	public Integer getStock() {
+	public Double getStock() {
 		return stock;
 	}
 	
-	public void setStock(Integer stock) {
+	public void setStock(Double stock) {
 		this.stock = stock;
 	}
 	
