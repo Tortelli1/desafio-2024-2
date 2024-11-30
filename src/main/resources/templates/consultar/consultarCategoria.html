@@ -6,6 +6,7 @@
    	<link rel="stylesheet" href="/css/consultar/padraoDeConsulta.css">
     <link rel="stylesheet" href="/css/paginas/fonteDeCores.css">
 	<link rel="stylesheet" href="/css/paginas/header.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<header th:insert="~{/paginas/header :: header}"></header>
@@ -23,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="category : ${category}">
+                    <tr th:each="category : ${categories}">
                         <td th:text="${category.id}"></td>
                         <td th:text="${category.name}"></td>
                         <td th:text="${category.active} ? 'Ativo' : 'Inativo'"></td>
@@ -32,6 +33,9 @@
             </table>
         </div>
     </main>
-    <script src="/scripts/paginas/home.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="/script/paginas/home.js"></script>
+	<script src="/script/cadastrar/cadastrarCategoria.js"></script>
 </body>
 </html>

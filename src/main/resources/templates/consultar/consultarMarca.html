@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Consultar Marcas</title>
 	<link rel="stylesheet" href="/css/consultar/padraoDeConsulta.css">
     <link rel="stylesheet" href="/css/paginas/fonteDeCores.css">
 	<link rel="stylesheet" href="/css/paginas/header.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<header th:insert="~{/paginas/header :: header}"></header>
@@ -34,7 +35,9 @@
 			</table>
 		</div>
 	</main>
-	<script src="/scripts/paginas/home.js"></script>
-	<script src="/scripts/cadastrar/cadastrarProduto.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="/script/paginas/home.js"></script>
+	<script src="/script/cadastrar/cadastrarMarca.js"></script>
 </body>
 </html>

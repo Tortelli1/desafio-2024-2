@@ -30,7 +30,7 @@ public class CategoryController {
 	@GetMapping("/consultar")
 	public String consultarCategoria(@ModelAttribute("category") Category category, Model model) {
 		List<Category> categories = categoryService.getAllCategorys();
-		model.addAttribute("category", categories);
+		model.addAttribute("categories", categories);
 		return "/consultar/consultarCategoria";
 	}
 	
