@@ -2,6 +2,11 @@ var table;
 
 $(document).ready(function() {
     var table = $('#tableCategorias').DataTable({
+		columns: [
+		        { data: 'id' },
+		        { data: 'name' },
+		        { data: 'active' }
+		    ],
         "paging": true,
         "pageLength": 10,
         "language": {
@@ -54,7 +59,7 @@ $("#tableCategorias tbody").on('click', 'tr', function() {
 	            if (confirmDelete) {
 	                $.ajax({
 	                    url: '/product/deletar/' + productId,
-	                    method: 'DELETE',
+	                    method: 'POST',
 	                    success: function(response) {
 	                        alert('Produto excluído com sucesso!');
 	                        table.ajax.reload();

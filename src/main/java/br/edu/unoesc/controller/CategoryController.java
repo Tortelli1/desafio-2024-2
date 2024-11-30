@@ -3,13 +3,10 @@ package br.edu.unoesc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,18 +60,19 @@ public class CategoryController {
 		return "/cadastro/cadastrarProduto";
 	}
 	
-	@DeleteMapping("/deletar/{id}")
-	public ResponseEntity<String> deletarCategoria(@PathVariable("id") Integer id) {
+	@PostMapping("/deletar/{id}")
+	public String deletarCategoria(@PathVariable("id") Integer id, RedirectAttributes attr) {
 		try {
 			boolean isRemoved = categoryService.deletarCategory(id);
 			if (!isRemoved) {
-				return new ResponseEntity<>("O registro não foi localizado!", HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity<>("O registro foi deletado com sucesso!", HttpStatus.OK);
+				attr.addFlashAttribute("error", "O registro não foi localizado!");
+			} else {
+	            attr.addFlashAttribute("success", "O registro foi deletado com sucesso!");
+	        }
 		} catch (Exception e) {
-			return new ResponseEntity<>("Ocorreu um erro ao tentar deletar o registro", HttpStatus.INTERNAL_SERVER_ERROR);
+			attr.addFlashAttribute("error", "Ocorreu um erro ao tentar deletar o registro!");
 		}
-	}
-	
+		return "redirect:/product/consultar";
+	}	
 	
 }
