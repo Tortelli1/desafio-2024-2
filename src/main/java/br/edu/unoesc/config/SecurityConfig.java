@@ -23,7 +23,7 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			
 			.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/css/login.css", "/css/style.css").permitAll()
+                        .requestMatchers("/", "/css/paginas/login.css", "/css/").permitAll()
                         .anyRequest().authenticated())
 			
 			.formLogin(login -> login

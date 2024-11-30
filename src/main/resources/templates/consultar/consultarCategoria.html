@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="category : ${categories}">
+                    <tr th:each="category : ${category}">
                         <td th:text="${category.id}"></td>
                         <td th:text="${category.name}"></td>
                         <td th:text="${category.active} ? 'Ativo' : 'Inativo'"></td>

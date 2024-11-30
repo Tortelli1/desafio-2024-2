@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>Login</title>
-    <link href="/css/login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/paginas/login.css"/>
 </head>
 <body>
 
     <div class="container">
-        <!-- <img src="https://acad.unoesc.edu.br/academico/images/logo-unoesc-colorido.png" alt="Logo" class="logo" /> -->
         <br>
-        <form action="/login" method="POST">
+        <form th:action="@{/login}" method="POST">
             <div class="form-group">
                 <label for="username">Usuário</label>
                 <input type="text" id="username" name="username" class="form-control" required />
@@ -19,8 +18,9 @@
                 <label for="password">Senha</label>
                 <input type="password" id="password" name="password" class="form-control" required />
             </div>
+            <div th:if="${param.error}" class="mensagem">Usuário ou senha inválidos!</div>
             <button type="submit" class="btn btn-primary">Entrar</button>
-            <hr class="divider" />
+            <br>
         </form>
     </div>
 
